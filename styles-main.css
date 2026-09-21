@@ -6,7 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     min-height: 100vh;
 }
 
@@ -193,57 +193,31 @@ td:first-child, th:first-child {
     font-size: 32px;
 }
 
-/* ===== Main action buttons ===== */
 .option {
-    width: 95%;
-    max-width: 600px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    gap: 20px; /* Adjust spacing between buttons */
     align-items: center;
-    margin: 20px auto 0;
-}
-
-.top-buttons {
-    width: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-
-/* Keep all three controls on the same row */
-.progress,
-.calendar {
-    margin-top: 0;
-    min-width: 0;
-    white-space: nowrap;
 }
 
 .refresh {
-    width: 42px;
-    height: 42px;
-    margin: 0;
-    padding: 8px;
+    margin-top: 20px;
+    background-color: #FFF0D1;
+    color: #795757;
     border: none;
     border-radius: 8px;
-    background: #FFF0D1;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    padding: 6px 24px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.refresh img {
-    width: 24px;
-    height: 24px;
-    display: block;
-    object-fit: contain;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none; /* Remove underline from the link */
+    width: 30px;
 }
 
 .refresh:hover {
-    background: #FFF0D1;
+    background-color: #FFF0D1;
     transform: translateY(-2px);
 }
 
@@ -252,28 +226,20 @@ td:first-child, th:first-child {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Progress chart ===== */
 .chart-container {
     width: 95%;
     max-width: 900px;
     height: 500px;
-    margin: 20px auto 0;
-    padding: 20px;
-    box-sizing: border-box;
+    margin-top: 40px;
     background: #FFF0D1;
     border-radius: 16px;
+    padding: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     display: none;
 }
 
-.chart-container canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-}
-
-.progress,
-.calendar {
+.progress {
+    margin-top: 20px;
     background-color: #FFF0D1;
     color: #795757;
     border: none;
@@ -286,41 +252,39 @@ td:first-child, th:first-child {
 }
 
 .calendar {
+    margin-top: 20px;
+    background-color: #FFF0D1;
+    color: #795757;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.calendar:hover,
-.progress:hover {
+.calendar:hover {
     background-color: #FFF0D1;
     transform: translateY(-2px);
 }
 
-.calendar:active,
-.progress:active {
+.calendar:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Calendar ===== */
+/* UPDATED CALENDAR CONTAINER */
 .calendar-container {
     display: none;
-    width: 95%;
-    max-width: 900px;
-    margin: 20px auto 0;
-    box-sizing: border-box;
+    margin-top: 20px;
+    width: 40%;       /* further reduced width of the whole calendar */
+    max-width: 800px;
     background: #FFF0D1;
-    padding: 20px;
+    padding: 12px;    /* slightly reduced padding */
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-}
-
-.months-container {
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.month {
-    box-sizing: border-box;
 }
 
 /* UPDATED MONTHS */
@@ -564,32 +528,19 @@ input[type="checkbox"] {
         align-items: center;
         gap: 12px;
         width: 80%;
+        flex-wrap: wrap;
     }
 
-    .option {
-        width: 95%;
-        max-width: 600px;
-    }
-
-    .top-buttons {
-        width: 100%;
-        gap: 8px;
-    }
-
+    /* First row (progress + calendar) */
     .option .progress,
     .option .calendar {
-        flex: 1;
-        width: auto;
+        width: 100%;
+        display: inline-block;
     }
 
     .option .refresh {
-        flex: 0 0 42px;
-        display: flex;
-    }
-    
-    .chart-container {
-        height: 40vh;   /* was 350 or 500 */
-        padding: 10px;
+        margin-top: 10px;
+        display: block;
     }
 
     .top-buttons {
@@ -611,8 +562,8 @@ input[type="checkbox"] {
     }
 
     .calendar-container {
-        width: 95%;
-        padding: 12px;
+        width: 60%;
+        padding: 10px;
     }
 
     .weeks-container > div {
