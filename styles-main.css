@@ -6,8 +6,24 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
+}
+
+/* #app-root wraps everything after login. As a direct child of the flex <body> it used to
+   shrink-wrap to its content, so every percentage width inside it (table, top bar, calendar,
+   chart) was calculated from that shrunken box. Give it the full width and centre its children. */
+#app-root {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+}
+
+#app-root > .weekly {
+    margin-top: 20px;
 }
 
 .name {
@@ -31,6 +47,12 @@ table {
     border-collapse: collapse;
     font-size: 16px;
     table-layout: fixed;
+}
+
+.table-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 td, th {
@@ -193,32 +215,57 @@ td:first-child, th:first-child {
     font-size: 32px;
 }
 
+/* ===== Main action buttons ===== */
 .option {
+    width: 95%;
+    max-width: 600px;
     display: flex;
-    flex-direction: row;
-    gap: 20px; /* Adjust spacing between buttons */
+    justify-content: center;
     align-items: center;
+    margin: 20px auto 0;
+}
+
+.top-buttons {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* Keep all three controls on the same row */
+.progress,
+.calendar {
+    margin-top: 0;
+    min-width: 0;
+    white-space: nowrap;
 }
 
 .refresh {
-    margin-top: 20px;
-    background-color: #FFF0D1;
-    color: #795757;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
     border: none;
     border-radius: 8px;
-    padding: 6px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    background: #FFF0D1;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    text-decoration: none; /* Remove underline from the link */
-    width: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.refresh:hover {
-    background-color: #FFF0D1;
-    transform: translateY(-2px);
+/* refresh.png has a lot of empty space around the arrow (the arrow fills only about
+   half of the image), so the image is drawn larger than the icon we actually see. */
+.refresh img {
+    width: 40px;
+    height: 40px;
+    display: block;
+    object-fit: contain;
+    pointer-events: none;
 }
 
 .refresh:active {
@@ -226,65 +273,84 @@ td:first-child, th:first-child {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+/* ===== Progress chart ===== */
 .chart-container {
     width: 95%;
     max-width: 900px;
     height: 500px;
-    margin-top: 40px;
+    margin: 20px auto 0;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;   /* Chart.js measures its parent, which should be positioned */
     background: #FFF0D1;
     border-radius: 16px;
-    padding: 20px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     display: none;
 }
 
-.progress {
-    margin-top: 20px;
+.chart-container canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.progress,
+.calendar {
     background-color: #FFF0D1;
     color: #795757;
     border: none;
     border-radius: 8px;
-    padding: 12px 24px;
+    height: 44px;
+    box-sizing: border-box;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.calendar {
-    margin-top: 20px;
-    background-color: #FFF0D1;
-    color: #795757;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.calendar,
+.progress {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.calendar:hover {
-    background-color: #FFF0D1;
-    transform: translateY(-2px);
+@media (hover: hover) {
+    .calendar:hover,
+    .progress:hover,
+    .refresh:hover {
+        transform: translateY(-2px);
+    }
 }
 
-.calendar:active {
+.calendar:active,
+.progress:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* UPDATED CALENDAR CONTAINER */
+/* ===== Calendar ===== */
 .calendar-container {
     display: none;
-    margin-top: 20px;
-    width: 40%;       /* further reduced width of the whole calendar */
-    max-width: 800px;
+    width: 95%;
+    max-width: 900px;
+    margin: 20px auto 0;
+    box-sizing: border-box;
     background: #FFF0D1;
-    padding: 12px;    /* slightly reduced padding */
+    padding: 20px;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.months-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.month {
+    box-sizing: border-box;
 }
 
 /* UPDATED MONTHS */
@@ -342,13 +408,6 @@ td:first-child, th:first-child {
 
 input[type="checkbox"] {
     touch-action: manipulation;
-}
-
-.top-buttons {
-    display: flex;
-    gap: 20px;
-    width: 100%;
-    justify-content: center;
 }
 
 /* ===================== Modals (Bible notes / Confession record) ===================== */
@@ -506,15 +565,8 @@ input[type="checkbox"] {
 
 @media screen and (max-width: 768px) {
 
-    .table-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;   /* centers table */
-    }
-
     table {
-        width: 95%;
-        margin: 0 auto;   /* forces center */
+        margin: 0 auto;
         font-size: 14px;
     }
 
@@ -522,38 +574,16 @@ input[type="checkbox"] {
         font-size: 10px;
     }
 
-    .option {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        width: 80%;
-        flex-wrap: wrap;
-    }
-
-    /* First row (progress + calendar) */
-    .option .progress,
-    .option .calendar {
-        width: 100%;
-        display: inline-block;
-    }
-
-    .option .refresh {
-        margin-top: 10px;
-        display: block;
-    }
-
+    /* Progress + Calendar share the row; the refresh button keeps its fixed 44px */
     .top-buttons {
-        justify-content: space-between;
+        gap: 10px;
     }
 
-    .top-buttons button {
-        width: 48%;
-    }
-
-    .refresh {
-        margin-top: 10px;
-        padding: 10px 24px;
+    .top-buttons .progress,
+    .top-buttons .calendar {
+        flex: 1 1 0;
+        min-width: 0;
+        padding: 0 8px;
     }
 
     .chart-container {
@@ -562,23 +592,36 @@ input[type="checkbox"] {
     }
 
     .calendar-container {
-        width: 60%;
-        padding: 10px;
+        width: 95%;
+        padding: 12px;
     }
 
-    .weeks-container > div {
+    /* Calendar: stack the month cards (the first child is the year/arrows header, leave it alone) */
+    .weeks-container > div:not(:first-child) {
         flex-direction: column !important;
     }
 
-    .weeks-container > div > div {
-        width: 94% !important;
+    .weeks-container > div:not(:first-child) > div {
+        width: 100% !important;
         margin: 6px 0 !important;
+        box-sizing: border-box;
     }
 
     .modal-box {
         max-width: 100%;
     }
 
+}
+
+/* Small phones (about 360px wide): give the 7 day columns a bit more room */
+@media screen and (max-width: 400px) {
+    td, th {
+        padding: 6px 2px;
+    }
+
+    td:first-child, th:first-child {
+        width: 72px;
+    }
 }
 
 /* ===================== Auth screen (Login / Sign up) ===================== */
