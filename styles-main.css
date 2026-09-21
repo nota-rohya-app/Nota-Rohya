@@ -200,11 +200,7 @@ td:first-child, th:first-child {
     align-items: center;
 }
 
-.refresh{
-    width: 30px;
-}
-
-.refresh { /* Combine styles for consistency */
+.refresh {
     margin-top: 20px;
     background-color: #FFF0D1;
     color: #795757;
@@ -217,6 +213,7 @@ td:first-child, th:first-child {
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     text-decoration: none; /* Remove underline from the link */
+    width: 30px;
 }
 
 .refresh:hover {
@@ -531,32 +528,19 @@ input[type="checkbox"] {
         align-items: center;
         gap: 12px;
         width: 80%;
+        flex-wrap: wrap;
     }
 
     /* First row (progress + calendar) */
     .option .progress,
     .option .calendar {
         width: 100%;
-    }
-
-    /* Make them side by side */
-    .option {
-        flex-wrap: wrap;
-    }
-
-    .option .progress,
-    .option .calendar {
         display: inline-block;
     }
 
     .option .refresh {
         margin-top: 10px;
         display: block;
-    }
-    
-    .chart-container {
-        height: 40vh;   /* was 350 or 500 */
-        padding: 10px;
     }
 
     .top-buttons {
