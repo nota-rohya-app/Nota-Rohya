@@ -10,8 +10,7 @@ const SERVANT_EMAILS = [
     'rafat.kireloss@gmail.com',
     'minartk@gmail.com',
     'nermingamil167@gmail.com',
-    'rashagamil83@gmail.com',
-    'pierre2006hany@gmail.com'
+    'rashagamil83@gmail.com'
 ];
 
 const AUTH_ERROR_MESSAGES = {
