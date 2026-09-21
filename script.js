@@ -128,7 +128,7 @@ async function saveWeekField(field, value) {
         );
     } catch (err) {
         console.error(`تعذر حفظ ${field}`, err);
-        alert('تعذر الحفظ، تأكد من اتصالك بالإنترنت وحاول مرة أخرى.');
+        alert('تعذر الحفظ، تأكد من اتصالك بالإنترنت وحاول مرة أخرى.\n\n(رمز الخطأ: ' + (err.code || err.message) + ')');
     }
 }
 
@@ -151,7 +151,7 @@ async function saveConfessionDoc(data) {
         );
     } catch (err) {
         console.error('تعذر حفظ بيانات الاعتراف', err);
-        alert('تعذر الحفظ، تأكد من اتصالك بالإنترنت وحاول مرة أخرى.');
+        alert('تعذر الحفظ، تأكد من اتصالك بالإنترنت وحاول مرة أخرى.\n\n(رمز الخطأ: ' + (err.code || err.message) + ')');
     }
 }
 
