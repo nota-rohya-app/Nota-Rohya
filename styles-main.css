@@ -245,7 +245,7 @@ td:first-child, th:first-child {
     flex: 0 0 44px;
     width: 44px;
     height: 44px;
-    margin: 0;
+    margin: 0 0 0 -6px;   /* laptop: pull it closer to Calendar (12px row gap - 6px = 6px) */
     padding: 0;
     border: none;
     border-radius: 8px;
@@ -576,7 +576,11 @@ input[type="checkbox"] {
 
     /* Progress + Calendar share the row; the refresh button keeps its fixed 44px */
     .top-buttons {
-        gap: 10px;
+        gap: 12px;
+    }
+
+    .refresh {
+        margin-left: 6px;   /* phone: push it a bit further from Calendar */
     }
 
     .top-buttons .progress,
@@ -689,8 +693,9 @@ input[type="checkbox"] {
 .top-bar {
     width: 100%;
     box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    /* equal side columns keep the name exactly in the middle of the screen */
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 10px 20px;
     background: #FFEBC2;
@@ -698,12 +703,17 @@ input[type="checkbox"] {
 }
 
 .top-bar-name {
+    grid-column: 2;
+    text-align: center;
+    white-space: nowrap;
     color: #795757;
     font-weight: bold;
     font-size: 14px;
 }
 
 .top-bar-actions {
+    grid-column: 3;
+    justify-self: end;
     display: flex;
     gap: 10px;
 }
@@ -779,6 +789,17 @@ input[type="checkbox"] {
 
     .top-bar-name {
         font-size: 12px;
+    }
+
+    .top-bar:has(#admin-entry-btn[style*="inline-block"]) {
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+
+    .top-bar:has(#admin-entry-btn[style*="inline-block"]) .top-bar-name,
+    .top-bar:has(#admin-entry-btn[style*="inline-block"]) .top-bar-actions {
+        grid-column: 1;
+        justify-self: center;
     }
 
     .top-bar-btn {
