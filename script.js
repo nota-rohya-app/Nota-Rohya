@@ -217,10 +217,10 @@ async function bindTableToWeek(week) {
     rows.forEach((row, rowIndex) => {
         const checkboxes = row.querySelectorAll("input[type='checkbox']");
         checkboxes.forEach((cb, colIndex) => {
-            cb.checked = !!(savedMatrix[rowIndex] && savedMatrix[rowIndex][colIndex] === 1);
+            cb.checked = isSavedChecked(savedMatrix, rowIndex, colIndex);
             cb.disabled = viewingReadOnly;
             cb.onchange = viewingReadOnly ? null : () => {
-                saveWeekField('matrix', getMatrixData());
+                saveWeekField('matrix', matrixToFirestore(getMatrixData()));
                 if (chart) showChart();
             };
         });
@@ -299,6 +299,19 @@ async function clearCheckboxes() {
         chart = null;
         document.querySelector('.chart-container').style.display = "none";
     }
+}
+
+// Firestore does NOT allow an array inside an array, so saving the table as [[1,0,...],[...]]
+// failed on every tick ("Nested arrays are not supported"). Each row is saved as one short
+// string instead, e.g. ["1010011", "0000000", ...]  (1 = checked, columns in Fri..Thu order).
+function matrixToFirestore(matrix) {
+    return matrix.map(row => row.join(''));
+}
+
+function isSavedChecked(savedMatrix, rowIndex, colIndex) {
+    const row = savedMatrix[rowIndex];
+    if (row == null) return false;
+    return row[colIndex] === '1' || row[colIndex] === 1;   // new string rows, or old numeric rows
 }
 
 function getMatrixData() {
