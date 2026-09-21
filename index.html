@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nota Rohya</title>
+  <link rel="icon" type="image/x-icon" href="pray-logo.png">
+  <link rel="stylesheet" href="styles-main.css">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#795757">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <!-- ===== Auth Screen (Login / Sign up) ===== -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-box">
+      <h1 class="weekly">Nota Rohya</h1>
+      <div class="auth-tabs">
+        <button id="tab-login" type="button" class="auth-tab active">تسجيل الدخول</button>
+        <button id="tab-signup" type="button" class="auth-tab">حساب جديد</button>
+      </div>
+      <p id="auth-error" class="auth-error" style="display:none;"></p>
+
+      <form id="login-form" class="auth-form">
+        <input type="email" id="login-email" class="modal-input" placeholder="البريد الإلكتروني" required>
+        <input type="password" id="login-password" class="modal-input" placeholder="كلمة السر" required>
+        <button type="submit" class="modal-save">دخول</button>
+      </form>
+
+      <form id="signup-form" class="auth-form" style="display:none;">
+        <input type="text" id="signup-name" class="modal-input" placeholder="الاسم" required>
+        <input type="email" id="signup-email" class="modal-input" placeholder="البريد الإلكتروني" required>
+        <input type="password" id="signup-password" class="modal-input" placeholder="كلمة السر (٦ أحرف على الأقل)" required minlength="6">
+        <div class="auth-role-choice" style="display:flex; gap:16px; justify-content:center; color:#795757; margin:6px 0;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+            <input type="radio" name="signup-role" value="makhdoum" checked> مخدوم
+          </label>
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+            <input type="radio" name="signup-role" value="khadem"> خادم
+          </label>
+        </div>
+        <button type="submit" class="modal-save">إنشاء الحساب</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== Main App (shown only after login) ===== -->
+  <div id="app-root" style="display:none;">
+
+  <div class="top-bar">
+    <span id="current-user-name" class="top-bar-name"></span>
+    <div class="top-bar-actions">
+      <button id="admin-entry-btn" class="top-bar-btn" style="display:none;" onclick="openAdminDashboard()">بيانات المخدومين</button>
+      <button id="logout-btn" class="top-bar-btn">تسجيل خروج</button>
+    </div>
+  </div>
+
+  <div id="viewing-banner" class="viewing-banner" style="display:none;">
+    <span id="viewing-banner-text"></span>
+    <button type="button" onclick="returnToOwnData()">رجوع لحسابي</button>
+  </div>
+
+  <br>
+  <h1 class="weekly">Nota Rohya</h1>
+  <h2 id="current-week" style="color:#795757; text-align:center; margin-top:5px;"></h2>
+  <div class="table-container">
+    <table>
+      <tr>
+        <th>Days | Tasks</th>
+        <th>Fri</th>
+        <th>Sat</th>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tue</th>
+        <th>Wed</th>
+        <th>Thu</th>
+      </tr>
+      <tr>
+        <td><b>باكر</b></td>
+        <td>
+          <div class="checkbox-wrapper-12">
+            <div class="cbx">
+              <input type="checkbox" id="checkbox-a-1" />
+              <label for="checkbox-a-1"></label>
+              <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                <path d="M2 8.36364L6.23077 12L13 2"></path>
+              </svg>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox-wrapper-12">
+            <div class="cbx">
+              <input type="checkbox" id="checkbox-a-2" />
+              <label for="checkbox-a-2"></label>
+              <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                <path d="M2 8.36364L6.23077 12L13 2"></path>
+              </svg>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox-wrapper-12">
+            <div class="cbx">
+              <input type="checkbox" id="checkbox-a-3" />
+              <label for="checkbox-a-3"></label>
+              <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                <path d="M2 8.36364L6.23077 12L13 2"></path>
+              </svg>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-a-4" />
+                        <label for="checkbox-a-4"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-a-5" />
+                        <label for="checkbox-a-5"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-a-6" />
+                        <label for="checkbox-a-6"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-a-7" />
+                        <label for="checkbox-a-7"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td><b>غروب</b></td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-1" />
+                        <label for="checkbox-b-1"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-2" />
+                        <label for="checkbox-b-2"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-3" />
+                        <label for="checkbox-b-3"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-4" />
+                        <label for="checkbox-b-4"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-5" />
+                        <label for="checkbox-b-5"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-6" />
+                        <label for="checkbox-b-6"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-b-7" />
+                        <label for="checkbox-b-7"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td><b>نوم</b></td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-1" />
+                        <label for="checkbox-c-1"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-2" />
+                        <label for="checkbox-c-2"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-3" />
+                        <label for="checkbox-c-3"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-4" />
+                        <label for="checkbox-c-4"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-5" />
+                        <label for="checkbox-c-5"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-6" />
+                        <label for="checkbox-c-6"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-c-7" />
+                        <label for="checkbox-c-7"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td><b>قداس</b></td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-1" />
+                        <label for="checkbox-d-1"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-2" />
+                        <label for="checkbox-d-2"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-3" />
+                        <label for="checkbox-d-3"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-4" />
+                        <label for="checkbox-d-4"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-5" />
+                        <label for="checkbox-d-5"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-6" />
+                        <label for="checkbox-d-6"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-d-7" />
+                        <label for="checkbox-d-7"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+              <td><b class="task-label" onclick="openBibleNotes()">قراءة الكتاب المقدس</b></td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-1" />
+                        <label for="checkbox-e-1"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-2" />
+                        <label for="checkbox-e-2"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-3" />
+                        <label for="checkbox-e-3"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-4" />
+                        <label for="checkbox-e-4"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-5" />
+                        <label for="checkbox-e-5"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-6" />
+                        <label for="checkbox-e-6"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+              <td>
+                  <div class="checkbox-wrapper-12">
+                      <div class="cbx">
+                        <input type="checkbox" id="checkbox-e-7" />
+                        <label for="checkbox-e-7"></label>
+                        <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                          <path d="M2 8.36364L6.23077 12L13 2"></path>
+                        </svg>
+                      </div>
+                  </div>
+              </td>
+          </tr>
+          <tr>
+            <td><b>صوم</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-1" />
+                      <label for="checkbox-f-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-2" />
+                      <label for="checkbox-f-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-3" />
+                      <label for="checkbox-f-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-4" />
+                      <label for="checkbox-f-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-5" />
+                      <label for="checkbox-f-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-6" />
+                      <label for="checkbox-f-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-f-7" />
+                      <label for="checkbox-f-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b class="task-label" onclick="openConfessionModal()">الاعتراف</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-1" />
+                      <label for="checkbox-g-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-2" />
+                      <label for="checkbox-g-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-3" />
+                      <label for="checkbox-g-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-4" />
+                      <label for="checkbox-g-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-5" />
+                      <label for="checkbox-g-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-6" />
+                      <label for="checkbox-g-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-g-7" />
+                      <label for="checkbox-g-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b>تحضير درس الاسبوع</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-1" />
+                      <label for="checkbox-h-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-2" />
+                      <label for="checkbox-h-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-3" />
+                      <label for="checkbox-h-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-4" />
+                      <label for="checkbox-h-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-5" />
+                      <label for="checkbox-h-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-6" />
+                      <label for="checkbox-h-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-h-7" />
+                      <label for="checkbox-h-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b>قراءة من كتاب خارجي</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-1" />
+                      <label for="checkbox-i-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-2" />
+                      <label for="checkbox-i-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-3" />
+                      <label for="checkbox-i-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-4" />
+                      <label for="checkbox-i-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-5" />
+                      <label for="checkbox-i-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-6" />
+                      <label for="checkbox-i-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-i-7" />
+                      <label for="checkbox-i-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b class="task-label" onclick="openOtherPracticeNotes()">ممارسة روحية أخرى</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-1" />
+                      <label for="checkbox-j-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-2" />
+                      <label for="checkbox-j-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-3" />
+                      <label for="checkbox-j-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-4" />
+                      <label for="checkbox-j-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-5" />
+                      <label for="checkbox-j-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-6" />
+                      <label for="checkbox-j-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-j-7" />
+                      <label for="checkbox-j-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b>حضور الاجتماع</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-1" />
+                      <label for="checkbox-k-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-2" />
+                      <label for="checkbox-k-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-3" />
+                      <label for="checkbox-k-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-4" />
+                      <label for="checkbox-k-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-5" />
+                      <label for="checkbox-k-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-6" />
+                      <label for="checkbox-k-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-k-7" />
+                      <label for="checkbox-k-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td><b>حضور الخدمة</b></td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-1" />
+                      <label for="checkbox-l-1"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-2" />
+                      <label for="checkbox-l-2"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-3" />
+                      <label for="checkbox-l-3"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-4" />
+                      <label for="checkbox-l-4"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-5" />
+                      <label for="checkbox-l-5"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-6" />
+                      <label for="checkbox-l-6"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="checkbox-wrapper-12">
+                    <div class="cbx">
+                      <input type="checkbox" id="checkbox-l-7" />
+                      <label for="checkbox-l-7"></label>
+                      <svg width="15" height="14" viewbox="0 0 15 14" fill="none">
+                        <path d="M2 8.36364L6.23077 12L13 2"></path>
+                      </svg>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+  </div>
+
+  <div class="option">
+    <div class="top-buttons">
+        <button class="progress">View Progress</button>
+        <button class="calendar">Calendar</button>
+    </div>
+    <img class="refresh" src="refresh.png" alt="Refresh Icon">
+  </div>
+
+  <div class="calendar-container" style="display:none;">
+    <div class="weeks-container"></div>
+  </div>
+
+  <div class="chart-container" style="display:none;">
+    <canvas id="progressChart"></canvas>
+  </div>
+  <br>
+  <br>
+
+  <!-- ===== Bible Reading Notes Modal ===== -->
+  <div class="modal-overlay" id="bible-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>قراءة الكتاب المقدس</h3>
+        <span id="bible-modal-week-label" class="modal-week-label"></span>
+        <button class="modal-close" onclick="closeModal('bible-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="bible-notes-body">
+        <!-- day rows injected by JS -->
+      </div>
+      <div class="modal-footer">
+        <button id="bible-modal-save-btn" class="modal-save" onclick="saveBibleNotes()">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Confession Record Modal ===== -->
+  <div class="modal-overlay" id="confession-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>الاعتراف</h3>
+        <button class="modal-close" onclick="closeModal('confession-modal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <label class="modal-field-label" for="confession-father-name">اسم أب الاعتراف</label>
+        <input type="text" id="confession-father-name" class="modal-input" placeholder="اكتب اسم أب الاعتراف">
+
+        <label class="modal-field-label" for="confession-last-date">تاريخ آخر اعتراف</label>
+        <input type="date" id="confession-last-date" class="modal-input">
+
+        <label class="modal-field-label" for="confession-notes">ملاحظات</label>
+        <textarea id="confession-notes" class="modal-textarea" placeholder="اكتب أي ملاحظات هنا..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button id="confession-modal-save-btn" class="modal-save" onclick="saveConfessionRecord()">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Other Spiritual Practice Notes Modal ===== -->
+  <div class="modal-overlay" id="other-practice-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>ممارسة روحية أخرى</h3>
+        <span id="other-practice-modal-week-label" class="modal-week-label"></span>
+        <button class="modal-close" onclick="closeModal('other-practice-modal')">✕</button>
+      </div>
+      <div class="modal-body" id="other-practice-notes-body">
+        <!-- day rows injected by JS -->
+      </div>
+      <div class="modal-footer">
+        <button id="other-practice-modal-save-btn" class="modal-save" onclick="saveOtherPracticeNotes()">حفظ</button>
+      </div>
+    </div>
+  </div>
+
+  </div> <!-- /#app-root -->
+
+  <!-- ===== Admin Dashboard (خادم only) ===== -->
+  <div class="modal-overlay" id="admin-modal">
+    <div class="modal-box admin-box">
+      <div class="modal-header">
+        <h3 id="admin-header-title">بيانات المخدومين</h3>
+        <button class="modal-close" onclick="closeAdminDashboard()">✕</button>
+      </div>
+      <div class="modal-body" id="admin-body">
+        <!-- list injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase (Auth + Firestore) -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+
+  <script src="chart.umd.min.js"></script>
+  <script src="auth.js"></script>
+  <script src="script.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

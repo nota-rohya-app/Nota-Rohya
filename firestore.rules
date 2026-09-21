@@ -1,0 +1,63 @@
+rules_version = '2';
+
+// ============================================================================
+// قواعد أمان Firestore
+// - أي حد يقدر يعمل حساب ويستخدم الموقع كـ "مخدوم"، ويقدر يقرأ ويكتب بياناته
+//   الخاصة فقط.
+// - "خادم" مينفعش إلا للإيميلات الأربعة تحت — الشرط ده متأكد منه هنا في
+//   القواعد نفسها، مش بس في كود الموقع، عشان محدش يقدر يحايل عليه.
+// - الخادم يقدر يقرأ بيانات أي حد (ملفه الشخصي + أسابيعه + الاعتراف)،
+//   لكن ميقدرش يعدّل بيانات حد تاني.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ⚠️ ضيف هنا إيميلات كل الخدام المسموح لهم يسجلوا كخادم ويشوفوا
+    // بيانات المخدومين. لازم تفضل نفس القائمة الموجودة في auth.js
+    // (SERVANT_EMAILS) عشان الاتنين يتزامنوا.
+    function isServant() {
+      return request.auth != null &&
+        request.auth.token.email != null &&
+        request.auth.token.email.lower() in [
+          'rafat.kireloss@gmail.com',
+          'minartk@gmail.com',
+          'nermingamil167@gmail.com',
+          'rashagamil83@gmail.com'
+        ];
+    }
+
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    // A profile can only be created as role 'khadem' if the signed-in email
+    // is one of the 4 Servants above; anyone can create their own 'makhdoum'
+    // profile.
+    function roleIsAllowed() {
+      return request.resource.data.role == 'makhdoum' ||
+        (request.resource.data.role == 'khadem' && isServant());
+    }
+
+    match /users/{userId} {
+      allow get:    if isOwner(userId) || isServant();
+      allow list:   if isServant();
+      allow create: if isOwner(userId) && roleIsAllowed();
+      // Owners can update their own profile but can never change their own
+      // role — that would let a 'makhdoum' self-promote to 'khadem'.
+      allow update: if isOwner(userId) &&
+        request.resource.data.role == resource.data.role;
+      allow delete: if false;
+
+      match /weeks/{weekId} {
+        allow read:  if isOwner(userId) || isServant();
+        allow write: if isOwner(userId);
+      }
+
+      match /confession/{docId} {
+        allow read:  if isOwner(userId) || isServant();
+        allow write: if isOwner(userId);
+      }
+    }
+  }
+}
