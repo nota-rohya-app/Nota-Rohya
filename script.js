@@ -281,7 +281,7 @@ function buildDefaultTable() {
 // ---- Clear / progress chart ----------------------------------------------------
 function confirmAndClearCheckboxes() {
     if (viewingReadOnly) return;
-    const confirmed = window.confirm("هل أنت متأكد أنك تريد تصفير كل المربعات لهذا الأسبوع؟");
+    const confirmed = window.confirm("هل أنت متأكد أنك تريد إزالة كل المربعات لهذا الأسبوع؟");
     if (confirmed) {
         clearCheckboxes();
     }
