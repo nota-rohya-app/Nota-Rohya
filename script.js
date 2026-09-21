@@ -1,6 +1,6 @@
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('service-worker.js'); // relative, so it works at the top of an address AND under /nota-rohya/
+    navigator.serviceWorker.register('/service-worker.js');
   });
 }
 
@@ -281,7 +281,7 @@ function buildDefaultTable() {
 // ---- Clear / progress chart ----------------------------------------------------
 function confirmAndClearCheckboxes() {
     if (viewingReadOnly) return;
-    const confirmed = window.confirm("هل أنت متأكد أنك تريد تصفير كل المربعات لهذا الأسبوع؟");
+    const confirmed = window.confirm("هل أنت متأكد أنك تريد إزالة كل المربعات لهذا الأسبوع؟");
     if (confirmed) {
         clearCheckboxes();
     }
