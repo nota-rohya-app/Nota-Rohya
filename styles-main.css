@@ -523,6 +523,15 @@ input[type="checkbox"] {
     min-height: 70px;
 }
 
+/* Some mobile browsers give <input type="date"> a native minimum width that
+   ignores width:100%, making it wider than the text input above it. Force it
+   to respect the container so it lines up with "اسم أب الاعتراف". */
+input[type="date"].modal-input {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
 .modal-textarea-small {
     min-height: 50px;
 }
