@@ -527,9 +527,7 @@ input[type="checkbox"] {
    that ignores width:100% and box-sizing, so it renders wider than the text
    input above it and can even bleed past the modal's padding. Stripping the
    native appearance forces it to obey normal CSS sizing like any other
-   .modal-input, so it lines up with "اسم أب الاعتراف". Doing this also
-   removes iOS's built-in height and "mm/dd/yyyy" hint, so both are restored
-   manually below via .date-field-wrapper / .date-placeholder. */
+   .modal-input, so it lines up with "اسم أب الاعتراف". */
 input[type="date"].modal-input {
     -webkit-appearance: none;
     appearance: none;
@@ -539,33 +537,10 @@ input[type="date"].modal-input {
     margin: 0;
     box-sizing: border-box;
     display: block;
-    /* match the height of the text input above it */
     padding: 8px 10px;
     font-size: 14px;
     line-height: 20px;
     min-height: 38px;
-}
-
-.date-field-wrapper {
-    position: relative;
-    width: 100%;
-}
-
-/* Manual stand-in for the native "mm/dd/yyyy" hint that appearance:none
-   removes. Shown by default, hidden once a date is picked (class toggled
-   via JS in script.js — see updateDatePlaceholder()). */
-.date-placeholder {
-    position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
-    color: #9b9b9b;
-    font-size: 14px;
-    pointer-events: none;
-}
-
-.date-field-wrapper.date-filled .date-placeholder {
-    display: none;
 }
 
 .modal-textarea-small {
