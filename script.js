@@ -159,6 +159,8 @@ async function saveConfessionDoc(data) {
 window.addEventListener("DOMContentLoaded", function () {
     document.querySelector('.refresh').addEventListener('click', confirmAndClearCheckboxes);
 
+    document.getElementById('confession-last-date').addEventListener('change', updateDatePlaceholder);
+
     document.querySelector('.progress').addEventListener('click', function () {
         const container = document.querySelector('.chart-container');
         if (container.style.display === 'block') {
@@ -554,6 +556,18 @@ async function saveOtherPracticeNotes() {
 }
 
 // ---- Confession record (ONE record per user, not tied to a specific week) ----
+
+// input[type=date] needs -webkit-appearance:none on iOS to fix a width bug,
+// which also removes the native "mm/dd/yyyy" hint. This redraws it manually:
+// .date-placeholder (see styles-main.css) is shown/hidden based on whether
+// a date is actually picked.
+function updateDatePlaceholder() {
+    const input = document.getElementById('confession-last-date');
+    const wrapper = input.closest('.date-field-wrapper');
+    if (!wrapper) return;
+    wrapper.classList.toggle('date-filled', !!input.value);
+}
+
 async function openConfessionModal() {
     if (!viewingUid) return;
 
@@ -561,6 +575,7 @@ async function openConfessionModal() {
     document.getElementById('confession-father-name').value = saved.fatherName || "";
     document.getElementById('confession-last-date').value = saved.lastDate || "";
     document.getElementById('confession-notes').value = saved.notes || "";
+    updateDatePlaceholder();
 
     ['confession-father-name', 'confession-last-date', 'confession-notes'].forEach(id => {
         document.getElementById(id).disabled = viewingReadOnly;
