@@ -1090,7 +1090,10 @@
         <input type="text" id="confession-father-name" class="modal-input" placeholder="اكتب اسم أب الاعتراف">
 
         <label class="modal-field-label" for="confession-last-date">تاريخ آخر اعتراف</label>
-        <input type="date" id="confession-last-date" class="modal-input">
+        <div class="date-field-wrapper">
+          <input type="date" id="confession-last-date" class="modal-input">
+          <span class="date-placeholder" id="confession-date-placeholder">يوم/شهر/سنة</span>
+        </div>
 
         <label class="modal-field-label" for="confession-notes">ملاحظات</label>
         <textarea id="confession-notes" class="modal-textarea" placeholder="اكتب أي ملاحظات هنا..."></textarea>
