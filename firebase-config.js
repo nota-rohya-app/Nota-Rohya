@@ -4,12 +4,13 @@
 // راجع ملف SETUP.md للشرح خطوة بخطوة
 // ============================================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyAZd4W7GjhS7qreTlHEzQph_9stqd1sr30",
-  authDomain: "nota-rohya-1ec23.firebaseapp.com",
-  projectId: "nota-rohya-1ec23",
-  storageBucket: "nota-rohya-1ec23.firebasestorage.app",
-  messagingSenderId: "39996331097",
-  appId: "1:39996331097:web:d7ed1c69a42c83cb020d48"
+  apiKey: "AIzaSyBgSYuXzBm1v6Si-6EH7LS3rRCHgl_XTdY",
+  authDomain: "nota-roheya---2026.firebaseapp.com",
+  projectId: "nota-roheya---2026",
+  storageBucket: "nota-roheya---2026.firebasestorage.app",
+  messagingSenderId: "385127675487",
+  appId: "1:385127675487:web:1a76dc1f02115dd4404dea",
+  measurementId: "G-LQS0PR5ZKC"
 };
 
 firebase.initializeApp(firebaseConfig);
